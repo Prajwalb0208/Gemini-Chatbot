@@ -84,12 +84,23 @@ app.post("/chat", async (req, res) => {
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro-002" });
 
     try {
-        const aiResponse = await model.generateContent(message);
+        // 🌟 Use system prompt to set chatbot behavior
+        const systemPrompt = "You are a friendly and helpful chatbot. Keep responses simple and conversational.";
+
+        // 🔹 Gemini API expects an array of messages
+        const chatRequest = {
+            contents: [
+                { role: "system", parts: [{ text: systemPrompt }] },
+                { role: "user", parts: [{ text: message }] }
+            ]
+        };
+
+        const aiResponse = await model.generateContent(chatRequest);
 
         // ✅ Correctly Extract AI Response Text
-        const reply = aiResponse.response.candidates[0]?.content.parts[0]?.text || "I couldn't understand that.";
-        console.log(reply);
+        const reply = aiResponse.response?.candidates?.[0]?.content?.parts?.[0]?.text || "I couldn't understand that.";
         
+        console.log("🤖 AI Response:", reply);
         res.json({ reply });
 
     } catch (error) {
@@ -97,6 +108,7 @@ app.post("/chat", async (req, res) => {
         res.status(500).json({ reply: "Hmm, something went wrong. Try again!" });
     }
 });
+
 
 // ✅ Text-to-Speech (TTS)
 app.post("/generate-tts", async (req, res) => {
