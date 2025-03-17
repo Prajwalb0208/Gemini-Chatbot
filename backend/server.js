@@ -9,7 +9,13 @@ dotenv.config();
 const app = express();
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-app.use(cors());
+app.use(
+    cors({
+      origin: ["http://localhost:5173", "https://gemini-chatbot-image-generator.onrender.com"], // Allow frontend URLs
+      methods: "GET,POST,PUT,DELETE",
+      credentials: true, // Allow cookies and authentication headers
+    })
+  );
 app.use(express.json());
 app.use("/images", express.static("images")); // Serve images statically
 
