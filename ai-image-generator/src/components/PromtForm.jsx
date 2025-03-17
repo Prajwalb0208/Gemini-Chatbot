@@ -6,10 +6,10 @@ const PromptForm = ({ setImage, setAudio }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await axios.post("http://localhost:5000/generate-image", { prompt });
+        const response = await axios.post("https://gemini-chatbot-image-generator.netlify.app/generate-image", { prompt });
         setImage(response.data.imageUrl);
 
-        const ttsResponse = await axios.post("http://localhost:5000/generate-tts", { text: prompt });
+        const ttsResponse = await axios.post("https://gemini-chatbot-image-generator.netlify.app/generate-tts", { text: prompt });
         setAudio(ttsResponse.data.audioUrl);
     };
 

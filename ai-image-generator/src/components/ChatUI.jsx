@@ -17,11 +17,11 @@ function ChatUI() {
         try {
             if (input.toLowerCase().includes("generate")) {
                 // 🖼️ Image Generation API Call
-                const res = await axios.post("http://localhost:5000/generate-image", { prompt: input });
-                response = { image: `http://localhost:5000${res.data.imageUrl}`, type: "bot" };
+                const res = await axios.post("https://gemini-chatbot-image-generator.netlify.app/generate-image", { prompt: input });
+                response = { image: `https://gemini-chatbot-image-generator.netlify.app${res.data.imageUrl}`, type: "bot" };
             } else {
                 // 💬 **Send normal text message to Gemini AI**
-                const res = await axios.post("http://localhost:5000/chat", { message: input });
+                const res = await axios.post("https://gemini-chatbot-image-generator.netlify.app/chat", { message: input });
                 response = { text: res.data.reply, type: "bot" };
             }
         } catch (error) {
