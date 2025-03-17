@@ -11,7 +11,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 app.use(
     cors({
-      origin: ["http://localhost:5173", "https://gemini-chatbot-image-generator.onrender.com","https://gemini-chatbot-beta-ten.vercel.app/"], // Allow frontend URLs
+      origin: ["*"], // Allow frontend URLs
       methods: "GET,POST,PUT,DELETE",
       credentials: true, // Allow cookies and authentication headers
     })
