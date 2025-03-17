@@ -1,0 +1,138 @@
+/* Importing an external Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: url('https://source.unsplash.com/1920x1080/?technology,chatbot') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Container for Chat UI */
+.chat-container {
+    width: 400px;
+    height: 600px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Chat Box */
+.chat-box {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Chat Message Styling */
+.chat-message {
+    max-width: 75%;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    word-wrap: break-word;
+    opacity: 0;
+    animation: fadeInUp 0.5s ease-in-out forwards;
+}
+
+/* User Message */
+.chat-message.user {
+    align-self: flex-end;
+    background: linear-gradient(135deg, #007bff, #00c6ff);
+    color: white;
+    box-shadow: 0px 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+/* Bot Message */
+.chat-message.bot {
+    align-self: flex-start;
+    background: rgba(255, 255, 255, 0.2);
+    color: black;
+    backdrop-filter: blur(5px);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Chat Input Section */
+.chat-input {
+    display: flex;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    border-top: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Input Field */
+.chat-input input {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease-in-out;
+}
+
+/* Input Field Hover & Focus */
+.chat-input input:focus {
+    background: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Send Button */
+.chat-input button {
+    padding: 12px 20px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 8px rgba(255, 0, 0, 0.3);
+}
+
+/* Send Button Hover Effect */
+.chat-input button:hover {
+    background: linear-gradient(135deg, #ff4b2b, #ff416c);
+    transform: scale(1.05);
+}
+
+/* Smooth Scroll for Chat Box */
+.chat-box::-webkit-scrollbar {
+    width: 5px;
+}
+
+.chat-box::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+}
+
+.chat-box::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
