@@ -84,15 +84,12 @@ app.post("/chat", async (req, res) => {
     const { message } = req.body;
     console.log("📨 User message:", message);
 
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" }); // ✅ Use `gemini-pro`
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" }); // ✅ Use a valid model
 
     try {
-        // ✅ Use a system message (Only works in `gemini-pro`)
+        // ✅ Send only user message (No system role)
         const aiResponse = await model.generateContent({
-            contents: [
-                { role: "system", parts: [{ text: "You are a friendly AI assistant." }] }, // ✅ System message
-                { role: "user", parts: [{ text: message }] } // ✅ User message
-            ]
+            contents: [{ role: "user", parts: [{ text: message }] }] // ✅ No system role
         });
 
         const reply = aiResponse.response.candidates[0]?.content.parts[0]?.text || "I couldn't understand that.";
@@ -105,6 +102,7 @@ app.post("/chat", async (req, res) => {
         res.status(500).json({ reply: "Hmm, something went wrong. Try again!" });
     }
 });
+
 
 
 
