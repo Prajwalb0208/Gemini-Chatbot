@@ -84,26 +84,20 @@ app.post("/chat", async (req, res) => {
     const { message } = req.body;
     console.log("📨 User message:", message);
 
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" }); // ✅ Use `gemini-pro`
 
     try {
-        // 🌟 Use system prompt to set chatbot behavior
-        const systemPrompt = "You are a friendly and helpful chatbot. Keep responses simple and conversational.";
-
-        // 🔹 Gemini API expects an array of messages
-        const chatRequest = {
+        // ✅ Use a system message (Only works in `gemini-pro`)
+        const aiResponse = await model.generateContent({
             contents: [
-                { role: "system", parts: [{ text: systemPrompt }] },
-                { role: "user", parts: [{ text: message }] }
+                { role: "system", parts: [{ text: "You are a friendly AI assistant." }] }, // ✅ System message
+                { role: "user", parts: [{ text: message }] } // ✅ User message
             ]
-        };
+        });
 
-        const aiResponse = await model.generateContent(chatRequest);
+        const reply = aiResponse.response.candidates[0]?.content.parts[0]?.text || "I couldn't understand that.";
+        console.log(reply);
 
-        // ✅ Correctly Extract AI Response Text
-        const reply = aiResponse.response?.candidates?.[0]?.content?.parts?.[0]?.text || "I couldn't understand that.";
-        
-        console.log("🤖 AI Response:", reply);
         res.json({ reply });
 
     } catch (error) {
@@ -111,6 +105,7 @@ app.post("/chat", async (req, res) => {
         res.status(500).json({ reply: "Hmm, something went wrong. Try again!" });
     }
 });
+
 
 
 // ✅ Text-to-Speech (TTS)
