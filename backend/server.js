@@ -84,7 +84,7 @@ app.post("/chat", async (req, res) => {
     const { message } = req.body;
     console.log("📨 User message:", message);
 
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
     try {
         // 🌟 Use system prompt to set chatbot behavior
